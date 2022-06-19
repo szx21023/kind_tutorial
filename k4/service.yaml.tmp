@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: flask
+  name: flask
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flask
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: flask
+    spec:
+      containers:
+      - env:
+        - name: POD
+          value: POD-1
+        image: docker.io/library/flask:latest
+        imagePullPolicy: Never
+        name: flask
+        ports:
+        - containerPort: 5000
+          protocol: TCP
+      restartPolicy: Always
