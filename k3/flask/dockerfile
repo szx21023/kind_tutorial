@@ -1,0 +1,13 @@
+FROM python:3.8
+
+ENV PROJECT_PATH /home/flask
+ENV SERVER_PORT 5000
+
+RUN mkdir -p ${PROJECT_PATH}
+WORKDIR ${PROJECT_PATH}
+COPY . ${PROJECT_PATH}
+RUN pip install --upgrade pip && \
+    pip install -r requirements.txt
+
+EXPOSE ${SERVER_PORT}
+CMD ["uwsgi", "--ini", "uwsgi.ini"]

@@ -11,7 +11,9 @@ spec:
     ports:
     - containerPort: 5000
     imagePullPolicy: Never
-
+    env:
+    - name: POD
+      value: POD-1
 ---
 apiVersion: v1
 kind: Service
